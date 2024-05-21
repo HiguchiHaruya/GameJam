@@ -4,31 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Timer : MonoBehaviour
 {
     [SerializeField] Image _fadeimage;
-    Button StartButton;
+    float _time = 5;
     private void Update()
     {
-        if (Input.GetMouseButtonUp(0))
+        _time -= Time.deltaTime;
+        Debug.Log(_time);
+        if (_time <= 0)
         {
-            //StartButton.transform.localScale = new Vector2(1f, 1f);
+            StartCoroutine("LoadResult");
         }
     }
-
-    private void Start()
-    {
-        StartButton = GetComponent<Button>();
-        StartButton.onClick.AddListener(Call);
-    }
-
-    void Call()
-    {
-        //StartButton.transform.localScale = new Vector2(0.5f, 0.5f);
-        StartCoroutine("LoadScene");
-    }
-
-    IEnumerator LoadScene()
+    IEnumerator LoadResult()
     {
         float fadeDuration = 3.0f;
         float timer = 0;
