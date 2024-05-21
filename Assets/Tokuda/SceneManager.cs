@@ -51,6 +51,6 @@ public class NewBehaviourScript : MonoBehaviour
         else
             Debug.Log("ƒCƒ[ƒWnull");
 
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("Sinbo");
     }
 }

@@ -32,8 +32,8 @@ public class ConditionKeyPress : ConditionBase
 		{
 			case KeyEventTypes.JustPressed:
 				if(Input.GetKeyDown(keyToPress))
-				{
-					ExecuteAllActions(null);
+                {
+                    ExecuteAllActions(null);
 				}
 				break;
 			case KeyEventTypes.Released:

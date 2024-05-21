@@ -23,4 +23,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Gosyo/UnityTechnologies/Playground/Examples/Roguelike/Roguelike.unity
     guid: ad15a26015e49439387b05c22fe7a962
+  - enabled: 1
+    path: Assets/Tokuda/Tokuda.unity
+    guid: 193ae3184e8f99843a204f0efff033f7
+  - enabled: 1
+    path: Assets/Sinbo/Sinbo.unity
+    guid: 7aa0d1e41f5ec0c499b7e6f36f84ad65
+  - enabled: 1
+    path: Assets/Sinbo/Sinbo_Result.unity
+    guid: 4402dedde0cf4564e97d5b7febced85c
   m_configObjects: {}

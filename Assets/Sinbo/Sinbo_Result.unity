@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d159c4ecc1d8e9b44903a73285c8d9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadScene: Sinbo_Result
+  loadScene: Tokuda
 --- !u!4 &262798611
 Transform:
   m_ObjectHideFlags: 0

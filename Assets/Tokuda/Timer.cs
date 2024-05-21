@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,12 +8,19 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     [SerializeField] Image _fadeimage;
-    float _time = 5;
+    public float _time = 5;
+    [SerializeField] Text _txt;
     private void Update()
     {
-        _time -= Time.deltaTime;
         Debug.Log(_time);
-        if (_time <= 0)
+
+        if (_time >= 0)
+        {
+            _time -= Time.deltaTime;
+            _txt.text = ($"Time : {(int)_time}");
+        }
+
+        if ((int)_time == 0)
         {
             StartCoroutine("LoadResult");
         }
@@ -27,7 +35,7 @@ public class Timer : MonoBehaviour
             float alpha = Mathf.Lerp(0, 1, timer / fadeDuration);
 
             if (_fadeimage != null)
-                _fadeimage.color = new Color(0, 0, 0, alpha);
+                _fadeimage.color = new Color(1, 1, 1, alpha);
             else
                 Debug.Log("イメージnull");
 
@@ -40,6 +48,6 @@ public class Timer : MonoBehaviour
         else
             Debug.Log("イメージnull");
 
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("Sinbo_Result");
     }
 }
