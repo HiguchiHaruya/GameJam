@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,13 +10,13 @@ public class ScoreUI : MonoBehaviour
 
     void Start()
     {
-        _scorePoint = Select._score; //æ“¾‚·‚é
+        _scorePoint = Select._score; //å–å¾—ã™ã‚‹
         _scoreText.text = ("Score:" + _scorePoint.ToString());
     }
 
     private void Update()
     {
-        _scorePoint = Select._score; //æ“¾‚·‚é
+        _scorePoint = Select._score; //å–å¾—ã™ã‚‹
         _scoreText.text = ("Score:" + _scorePoint.ToString());
     }
 

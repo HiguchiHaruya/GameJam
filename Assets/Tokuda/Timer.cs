@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     [SerializeField] Image _fadeimage;
-    public float _time = 5;
+    public static float _time = 15;
     [SerializeField] Text _txt;
     private void Update()
     {

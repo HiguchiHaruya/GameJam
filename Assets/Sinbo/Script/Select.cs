@@ -1,135 +1,163 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class Select : MonoBehaviour
 {
-    //inspector‚©‚çƒ{ƒ^ƒ“‚ğƒAƒTƒCƒ“‚µ‚Ä‚­‚¾‚³‚¢
+    //inspectorã‹ã‚‰ãƒœã‚¿ãƒ³ã‚’ã‚¢ã‚µã‚¤ãƒ³ã—ã¦ãã ã•ã„
     public GameObject _kakigori;
     public GameObject _kashiwamoti;
     public GameObject _ramune;
     public GameObject _suika;
 
-    //inspector‚©‚ç‚Ó‚«o‚µ‚É•\¦‚³‚ê‚é‰æ‘œ‚ğƒAƒTƒCƒ“‚µ‚Ä‚­‚¾‚³‚¢
+    //inspectorã‹ã‚‰ãµãå‡ºã—ã«è¡¨ç¤ºã•ã‚Œã‚‹ç”»åƒã‚’ã‚¢ã‚µã‚¤ãƒ³ã—ã¦ãã ã•ã„
     public GameObject _imgKakigori;
     public GameObject _imgKashiwamoti;
     public GameObject _imgRamune;
     public GameObject _imgSuika;
 
-    //inspector‚©‚çRandomDisplayƒXƒNƒŠƒvƒg‚ğƒAƒ^ƒbƒ`‚µ‚½GameObject‚ğƒAƒ^ƒbƒ`‚µ‚Ä‚­‚¾‚³‚¢
+    //inspectorã‹ã‚‰RandomDisplayã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’ã‚¢ã‚¿ãƒƒãƒã—ãŸGameObjectã‚’ã‚¢ã‚¿ãƒƒãƒã—ã¦ãã ã•ã„
     public RandomDisplay _randomDisplay;
 
-    public float _interval = 5.0f; //‰æ‘œ‚ğØ‚è‘Ö‚¦‚é‚Ü‚Å‚Ì•b”
-
-    public bool _input;
-
-    //SEŠÖ˜A
+    //SEé–¢é€£
     public AudioClip _okSe;
     public AudioClip _ngSe;
     AudioSource audioSource;
 
     public static int _score;
 
+    //ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼
+    public int _comboMax = 15; //æœ€å¤§å€¤
+    int _combo;
+    public Slider _comboSlider;
+
+    public GameObject _timePlus;
+
+    public static bool _ng;
+
+    private SpriteRenderer spriteRenderer;
+    [SerializeField] private List <Sprite> newSprite;
+    private int _turn;
+
     private void Start()
     {
-        _score = 0; //ƒXƒRƒA‚ğ‰Šú‰»
-        audioSource = GetComponent<AudioSource>();@//Component‚ğæ“¾
-        _input = false;
+        _score = 0; //ã‚¹ã‚³ã‚¢ã‚’åˆæœŸåŒ–
+        _combo = 0; //comboã‚’åˆæœŸåŒ–
+        _comboSlider.value = 0; //ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’åˆæœŸåŒ–
+        audioSource = GetComponent<AudioSource>();ã€€//Componentã‚’å–å¾—
     }
 
-    //ˆê’èŠÔŒã‚É‰æ‘œ‚ğ•ÏX‚·‚éƒRƒ‹[ƒ`ƒ“
-    IEnumerator ResetImage()
-    {
-        yield return new WaitForSeconds(_interval);
-        _randomDisplay.ObjNonDisplay();
-        _input = false;
-    }
-
-  
+    //ã‚¿ã‚¤ãƒ ã‚’å¢—ã‚„ã™é–¢é€£ã®å‡¦ç†
     public void Update()
     {
-        CheckInput();
+        ComboMax();
     }
 
-    public void CheckInput()
+    public void ComboMax()
     {
-        if (_input == true)
+        if (_comboMax == _combo)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
+            Timer._time += 5;
+            _combo = 0;
+            _comboSlider.value = (float)_combo;
+            _timePlus.SetActive(true);
+            Invoke("Delete", 1);
         }
     }
 
-    //•—•¨‚ğ‘I‚ñ‚¾‚ÉŒÄ‚Ño‚³‚ê‚éƒƒ\ƒbƒh
+    public void Delete()
+    {
+        _timePlus.SetActive(false);
+    }
+
+    //é¢¨ç‰©è©©ã‚’é¸ã‚“ã æ™‚ã«å‘¼ã³å‡ºã•ã‚Œã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     public void SelectKakigori()
     {
-        _input = true;
         if (_imgKakigori.activeInHierarchy) 
         {
-            StartCoroutine("ResetImage");
-            _score += 100; //ƒXƒRƒA‚ğ‘«‚·
+            _randomDisplay.ObjNonDisplay();
+            _score += 100; //ã‚¹ã‚³ã‚¢ã‚’è¶³ã™
+            _combo += 1;
+            _comboSlider.value = (float)_combo;
             audioSource.PlayOneShot(_okSe);
             //Debug.Log(_score);
         }
         else
         {
-            StartCoroutine("ResetImage");
+            _randomDisplay.ObjNonDisplay();
+            spriteRenderer = GameObject.FindGameObjectsWithTag("client_remove")[_turn].GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = newSprite[_turn % 4];
             audioSource.PlayOneShot(_ngSe);
         }
+        
+        _turn++;
     }
 
     public void SelectKashiwamoti()
     {
-        _input = true;
         if (_imgKashiwamoti.activeInHierarchy)
         {
-            StartCoroutine("ResetImage");
-            _score += 100; //ƒXƒRƒA‚ğ‘«‚·
+            _randomDisplay.ObjNonDisplay();
+            _score += 100; //ã‚¹ã‚³ã‚¢ã‚’è¶³ã™
+            _combo += 1;
+            _comboSlider.value = (float)_combo;
             audioSource.PlayOneShot(_okSe);
             //Debug.Log(_score);
         }
         else
         {
             audioSource.PlayOneShot(_ngSe);
-            StartCoroutine("ResetImage");
+            spriteRenderer = GameObject.FindGameObjectsWithTag("client_remove")[_turn].GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = newSprite[_turn % 4];
+            _randomDisplay.ObjNonDisplay();
         }
+
+        _turn++;
     }
     public void SelectRamune()
     {
-        _input = true;
         if (_imgRamune.activeInHierarchy)
         {
-            StartCoroutine("ResetImage"); 
-            _score += 100; //ƒXƒRƒA‚ğ‘«‚·
+            _randomDisplay.ObjNonDisplay(); 
+            _score += 100; //ã‚¹ã‚³ã‚¢ã‚’è¶³ã™
+            _combo += 1;
+            _comboSlider.value = (float)_combo;
             audioSource.PlayOneShot(_okSe);
             //Debug.Log(_score);
         }
         else
         {
             audioSource.PlayOneShot(_ngSe);
-            StartCoroutine("ResetImage");
+            spriteRenderer = GameObject.FindGameObjectsWithTag("client_remove")[_turn].GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = newSprite[_turn % 4];
+            _randomDisplay.ObjNonDisplay();
         }
+
+        _turn++;
     }
     public void SelectSuika()
     {
-        _input = true;
         if (_imgSuika.activeInHierarchy)
         {
-            StartCoroutine("ResetImage");
-            _score += 100; //ƒXƒRƒA‚ğ‘«‚·
+            _randomDisplay.ObjNonDisplay();
+            _score += 100; //ã‚¹ã‚³ã‚¢ã‚’è¶³ã™
+            _combo += 1;
+            _comboSlider.value = (float)_combo;
             audioSource.PlayOneShot(_okSe);
             //Debug.Log(_score);
         }
         else
         {
             audioSource.PlayOneShot(_ngSe);
-            StartCoroutine("ResetImage");
+            spriteRenderer = GameObject.FindGameObjectsWithTag("client_remove")[_turn].GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = newSprite[_turn % 4];
+            _randomDisplay.ObjNonDisplay();
         }
+
+        _turn++;
     }
 
 }

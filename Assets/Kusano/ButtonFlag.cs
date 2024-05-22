@@ -4,8 +4,8 @@ public class ButtonFlag : MonoBehaviour
 {
     public void ButtonOn()
     {
-        GameObject.FindWithTag("client").GetComponents<CreateObjectAction>()[0].ExecuteAction(null);
-        GameObject.FindWithTag("client").GetComponents<CreateObjectAction>()[1].ExecuteAction(null);
-        GameObject.FindWithTag("client").GetComponent<DestroyAction>().ExecuteAction(null);
+        GameObject.FindWithTag("client").GetComponents<CreateObjectAction>()[0].ExecuteAction(null);Å@//éüÇÃÇ®ãqÇ≥ÇÒ
+        GameObject.FindWithTag("client").GetComponents<CreateObjectAction>()[1].ExecuteAction(null);Å@//ç∂à⁄ìÆ
+        GameObject.FindWithTag("client").GetComponent<DestroyAction>().ExecuteAction(null); //ç°ÇÃÇ‡ÇÃÇè¡Ç∑
     }
 }
