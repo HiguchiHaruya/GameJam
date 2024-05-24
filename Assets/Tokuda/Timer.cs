@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     [SerializeField] Image _fadeimage;
-    public static float _time = 15;
+    public static float _time = 40;
     [SerializeField] Text _txt;
     private void Update()
     {
@@ -30,6 +31,8 @@ public class Timer : MonoBehaviour
         float fadeDuration = 3.0f;
         float timer = 0;
 
+        _fadeimage.raycastTarget = true;
+
         while (timer < fadeDuration)
         {
             float alpha = Mathf.Lerp(0, 1, timer / fadeDuration);
@@ -43,11 +46,11 @@ public class Timer : MonoBehaviour
             yield return null;
         }
 
-        if (_fadeimage != null)
-            _fadeimage.enabled = false;
-        else
-            Debug.Log("イメージnull");
-
+        //if (_fadeimage != null)
+        //    _fadeimage.enabled = false;
+        //else
+        Debug.Log("イメージnull");
+        _time = 40;
         SceneManager.LoadScene("Sinbo_Result");
     }
 }

@@ -30,7 +30,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     IEnumerator LoadScene()
     {
-        float fadeDuration = 3.0f;
+        float fadeDuration = 4.0f;
         float timer = 0;
 
         while (timer < fadeDuration)

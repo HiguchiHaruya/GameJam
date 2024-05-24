@@ -26,7 +26,7 @@ public class Ranking : MonoBehaviour
         for (int i = 0; i < rankingText.Length; i++)
         {
             int x = i + 1;
-            rankingText[i].text = (x + (": ") + rankingValue[i].ToString());
+            rankingText[i].text = (x + (": ") + rankingValue[i].ToString() + "“_");
         }
     }
 
